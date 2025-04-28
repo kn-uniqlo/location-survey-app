@@ -411,56 +411,47 @@
     // Function to record view statistics
     // ปรับเปลี่ยนฟังก์ชัน recordView สำหรับ Supabase
     async function recordView(branchId, branchName) {
-        const today = new Date().toISOString().split('T')[0];
-        const timestamp = new Date().toISOString();
-    
-        // บันทึกข้อมูลรายละเอียดการเข้าชม (เหมือนเดิม)
-        const { error: insertLogError } = await supabase
-            .from('view_logs')
-            .insert([
-                {
-                    branch_id: branchId,
-                    timestamp: timestamp,
-                    user_agent: navigator.userAgent,
-                    screen_resolution: `<span class="math-inline">\{window\.screen\.width\}x</span>{window.screen.height}`,
-                    language: navigator.language
-                }
-            ]);
-    
-        if (insertLogError) {
-            console.error('Error recording view log:', insertLogError);
-        }
-    
-        // อัปเดตจำนวนการเข้าชมรายวัน
-        const { error: updateDailyCountError } = await supabase
-            .from('branch_stats')
-            .upsert(
-                [{ branch_id: branchId, view_count: 1, date: today }],
-                { onConflict: ['branch_id', 'date'] }
-            );
-    
-        if (updateDailyCountError) {
-            console.error('Error updating daily view count:', updateDailyCountError);
-        }
-    
-        // อัปเดตจำนวนการเข้าชมทั้งหมด
-        const { error: updateTotalCountError } = await supabase
-            .from('branch_stats')
-            .update({ total_view_count: supabase.raw('total_view_count + 1') })
-            .match({ branch_id: branchId });
-    
-        if (updateTotalCountError) {
-            console.error('Error updating total view count:', updateTotalCountError);
-        }
-    
-        // อัปเดตชื่อสาขา (เหมือนเดิม)
-        const { error: upsertNameError } = await supabase
-            .from('branch_names')
-            .upsert([{ id: branchId, name: branchName }], { onConflict: ['id'] });
-    
-        if (upsertNameError) {
-            console.error('Error updating branch name:', upsertNameError);
-        }
+      const today = new Date().toISOString().split('T')[0];
+      const timestamp = new Date().toISOString(); // Supabase ใช้รูปแบบ ISO timestamp
+
+      // บันทึกข้อมูลรายละเอียดการเข้าชม
+      const { error: insertLogError } = await supabase
+        .from('view_logs') // เปลี่ยนเป็นชื่อตารางสำหรับ logs
+        .insert([
+          {
+            branch_id: branchId,
+            timestamp: timestamp,
+            user_agent: navigator.userAgent,
+            screen_resolution: `${window.screen.width}x${window.screen.height}`,
+            language: navigator.language
+          }
+        ]);
+
+      if (insertLogError) {
+        console.error('Error recording view log:', insertLogError);
+      }
+
+      // อัปเดตจำนวนการเข้าชมทั้งหมด
+      const { error: updateCountError } = await supabase
+        .from('branch_stats') // เปลี่ยนเป็นชื่อตารางสำหรับสถิติ
+        .upsert([
+          { branch_id: branchId, view_count: 1, date: today }
+        ], { onConflict: ['branch_id', 'date'] }); // หากมี record อยู่แล้วให้เพิ่ม view_count
+
+      if (updateCountError) {
+        console.error('Error updating view count:', updateCountError);
+      }
+
+      // อัปเดตชื่อสาขา (ถ้ายังไม่มี)
+      const { error: upsertNameError } = await supabase
+        .from('branch_names') // เปลี่ยนเป็นชื่อตารางสำหรับชื่อสาขา
+        .upsert([
+          { id: branchId, name: branchName }
+        ], { onConflict: ['id'] });
+
+      if (upsertNameError) {
+        console.error('Error updating branch name:', upsertNameError);
+      }
     }
 
     // Add event listener for read button
