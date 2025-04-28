@@ -1,0 +1,312 @@
+[
+  {
+    "id": "Location Inspection Survey_1001 Central World",
+    "name": "1001 สาขา Central World",
+    "address": "เซ็นทรัลเวิล์ด ชั้น 3 ถนนราชดำริ แขวงปทุมวัน",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-613-1465",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+World"
+  },
+  {
+    "id": "Location Inspection Survey_1002 Central Ladprao",
+    "name": "1002 สาขา Central Plaza Lardprao",
+    "address": "เซ็นทรัลพลาซ่าลาดพร้าว เลขที่ 1693 ถนนพหลโยธิน แขวงจตุจักร เขตจตุจักร กรุงเทพมหานคร 10900",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-986-7358",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Plaza+Lardprao"
+  },
+  {
+    "id": "Location Inspection Survey_1005 Siam Paragon",
+    "name": "1005 สาขา Siam Paragon",
+    "address": "สยามพารากอน ชั้น 1 เลขที่ 991 แขวงปทุมวัน เขตปทุมวัน กรุงเทพมหานคร 10330",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-610-7787",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Siam+Paragon"
+  },
+  {
+    "id": "Location Inspection Survey_1008 Central Festival Pattaya Beach",
+    "name": "1008 สาขา CF Pattaya Beach",
+    "address": "เซ็นทรัลเฟสติวัล พัทยาบีช ชั้น 1 ทางเข้า 9 333/102 ถนน พัทยาสายสอง อำเภอบางละมุง 20260",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "038-043-144",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=CF+Pattaya+Beach"
+  },
+  {
+    "id": "Location Inspection Survey_1015 Central Festival Hat Yai",
+    "name": "1015 สาขา CF Hatyai",
+    "address": "เซ็นทรัลเฟสติวัลหาดใหญ่ ชั้น1 เลขที่ 1518 ถนนกาญจนาวนิช ตำบลหาดใหญ่ อำเภอหาดใหญ่ จังหวัดสงขลา 90110",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "074-339-625",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=CF+Hatyai"
+  },
+  {
+    "id": "Location Inspection Survey_1020 Central Salaya",
+    "name": "1020 สาขา Central Salaya",
+    "address": "เซ็นทรัลพลาซ่าศาลายา ชั้น 1 ห้อง 109 ตำบลบางเตย อำเภอสามพราน จังหวัดนครปฐม 73210",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "034-107-700",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Salaya"
+  },
+  {
+    "id": "Location Inspection Survey_1023 Central Udonthani",
+    "name": "1023 สาขา Central Udonthani",
+    "address": "เซ็นทรัลพลาซ่าอุดรธานี 277/1-3 ถนน ประจักษ์ศิลปาคม อำเภอเมืองอุดรธานี จังหวัดอุดรธานี 41000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "042-113-173",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Udonthani"
+  },
+  {
+    "id": "Location Inspection Survey_1024 Central Rayong",
+    "name": "1024 สาขา Central Rayong",
+    "address": "เซ็นทรัลพลาซ่าระยอง ชั้น 1 เลขที่ 113 ตำบลเชิงเนิน อำเภอเมือง จังหวัดระยอง 21000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "033-013-011",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Rayong"
+  },
+  {
+    "id": "Location Inspection Survey_1026 Central Plaza Khonkean",
+    "name": "1026 สาขา Central Khonkaen",
+    "address": "เซ็นทรัลพลาซ่าขอนแก่น ชั้น 1 99 99/1 ถนนศรีจันทร์ ตำบลในเมือง อำเภอเมืองขอนแก่น จังหวัดขอนแก่น 40000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "043-288-416",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Khonkaen"
+  },
+  {
+    "id": "Location Inspection Survey_1031 Central Plaza Rama3",
+    "name": "1031 สาขา Central Plaza Rama 3",
+    "address": "เซ็นทรัลพลาซ่าพระราม3 เลขที่ 79 ถนนสาธุประดิษฐ์ แขวงช่องนนทรี เขตยานนาวา กรุงเทพมหานคร 10120",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-673-5714",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Plaza+Rama+3"
+  },
+  {
+    "id": "Location-Inspection-Survey_1032 The Mall Ngamwongwan",
+    "name": "1032 สาขา The Mall Ngamwongwan",
+    "address": "เดอะมอลล์งามวงศ์วาน 30/39-50 หมู่ 2 เขตบางเขน นนทบุรี 11000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-550-0847",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=The+Mall+Ngamwongwan"
+  },
+  {
+    "id": "Location Inspection Survey_1034 The Mall korat",
+    "name": "1034 สาขา The Mall Korat",
+    "address": "เดอะมอลล์ โครราช 1242/2 ถนนมิตรภาพ อำเภอเมือง จังหวัดนครราชสีมา 30000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "044-390-491",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=The+Mall+Korat"
+  },
+  {
+    "id": "Location Inspection Survey_1039 Central Plaza Nakornrachasrima",
+    "name": "1039 สาขา Central Plaza Nakhon Ratchasima",
+    "address": "เซ็นทรัลพลาซ่านครราชสีมา ตำบลในเมือง อำเภอเมือง จังหวัดนครราชสีมา 30000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "044-003-710",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Plaza+Nakhon+Ratchasima"
+  },
+  {
+    "id": "Location Inspection Survey_1040 Roadside Phattanakarn",
+    "name": "1040 สาขา Phatthanakan",
+    "address": "พัฒนาการ แขวงสวนหลวง เขตสวนหลวง กรุงเทพมหานคร 10250",
+    "dolly": "15:00 - 17:00",
+    "hours": "15:00 - 18:00",
+    "phone": "02-029-0085",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Phatthanakan"
+  },
+  {
+    "id": "Location Inspection Survey_1047 Lasalle's Avenue",
+    "name": "1047 สาขา Lasalle's Avenue",
+    "address": "ลาซาล อเวนิว เลขที่ 549 ถนนลาซาล-แบริ่ง แขวงบางนาใต้ เขตบางนา กรุงเทพมหานคร 10260",
+    "dolly": "15:00 - 17:00",
+    "hours": "15:00 - 18:00",
+    "phone": "02-029-7937",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Lasalle's+Avenue"
+  },
+  {
+    "id": "Location Inspection Survey_1049 Terminal 21 Pattaya",
+    "name": "1049 สาขา Terminal 21 Pattaya",
+    "address": "เทอร์มินอล21 พัทยา ชั้น M แคชเชียร์ 456.777-777/1 หมู่6 ถนนพัทยาเหนือ เมืองพัทยา อำเภอบางละมุง ชุมชนชลบุรี",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "033-045-182",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Terminal+21+Pattaya"
+  },
+  {
+    "id": "Location Inspection Survey_1052 Central Chiang Rai",
+    "name": "1052 สาขา Central Plaza Chiangrai",
+    "address": "เซ็นทรัลพลาซ่าเชียงราย ห้อง 119-123 หมู่ที่ 13 99/9 ถนน พหลโยธิน ตำบลรอบเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "052-024-180",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Plaza+Chiangrai"
+  },
+  {
+    "id": "Location Inspection Survey_1058 Samyan Mitrtown",
+    "name": "1058 สาขา Samyan Mitrtown",
+    "address": "สามย่านมิตรทาวน์ ชั้น 1 เลขที่ 944 ถนนพระราม 4 แขวงวังใหม่ เขตประทุมวัน กรุงเทพฯ 10330",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-029-0486",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Samyan+Mitrtown"
+  },
+  {
+    "id": "Location Inspection Survey_1059 Roadside Nawamin",
+    "name": "1059 สาขา Nawamin",
+    "address": "นวมินทร์ เลขที่ 1108/3 ถนนนวมินทร์ แขวงคลองกุ่ม เขตบึงกุ่ม กรุงเทพมหานคร 10240",
+    "dolly": "15:00 - 15:30",
+    "hours": "15:00 - 16:00",
+    "phone": "02-481-9930",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Nawamin"
+  },
+  {
+    "id": "Location Inspection Survey_1060 Central Chonburi",
+    "name": "1060 สาขา Central Plaza Chonburi",
+    "address": "เซ็นทรัลพลาซ่าชลบุรี เลขที่ 55/88-89 หมู่ 1 ถนนสุขุมวิท ตำบลเสม็ด อำเภอเมืองชลบุรี 20000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "033-140-389",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Plaza+Chonburi"
+  },
+  {
+    "id": "Location Inspection Survey_1061 Fashion Island",
+    "name": "1061 สาขา Fashion Island",
+    "address": "แฟชั่น ไอซ์แลนด์ เลขที่ 587, 589 , 589/7-9 ถนนรามอินทรา แขวงคันนายาว เขตคันนายาว กรุงเทพมหานคร 10230",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-947-5464",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Fashion+Island"
+  },
+  {
+    "id": "Location Inspection Survey_1063 Central Plaza Sriracha",
+    "name": "1063 สาขา Central Plaza Siracha",
+    "address": "เซ็นทรัลพลาซ่าศรีราชา เลขที่ 8 ถนนสุขุมวิท ตำบลศรีราชา อำเภอศรีราชา ตำบลชลบุรี 20110",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "038-312-146",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Plaza+Siracha"
+  },
+  {
+    "id": "Location Inspection Survey_1065 The Mall Thaphra",
+    "name": "1065 สาขา The Mall Thapra",
+    "address": "เดอะมอลล์ท่าพระ ชั้น G 129 ถนนรัชดาภิเษก แขวงบุคคโล เขตธนบุรี กรุงเทพมหานคร 10600",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-080-9440",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=The+Mall+Thapra"
+  },
+  {
+    "id": "Location Inspection Survey_1067 Central Ubon Ratchathani",
+    "name": "1067 สาขา Central Ubon Ratchathani",
+    "address": "เซ็นทรัลอุบลราชธานี ชั้น 1 311 หมู่ 7 ถนนเลี่ยงเมืองอุบลราชธานี ตำบลแจระแม อำเภอเมือง จังหวัดอุบลราชธานี 34000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "045-951-558",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Ubon+Ratchathani"
+  },
+  {
+    "id": "Location Inspection Survey_1068 Robinson Chachoengsao",
+    "name": "1068 สาขา Robinson Chachoengsao",
+    "address": "โรบินสันฉะเชิงเทรา ชั้น 1 เลขที่ 910 หมู่ที่ 4 ถนนบางปะกง-ฉะเชิงเทรา ตำบลโสธร อำเภอเมือง จังหวัดฉะเชิงเทรา 24000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "033-051-193",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Robinson+Chachoengsao"
+  },
+  {
+    "id": "Location Inspection Survey_1069 Robinson Kanchanaburi",
+    "name": "1069 สาขา Robinson Kanchanaburi",
+    "address": "โรบินสันกาญจนบุรีชั้น 1 เลขที่ 110 หมู่ 9 ถนนเลี่ยงเมืองกาญจนบุรี ตำบลปากแพรก อำเภอเมือง จังหวัดกาญจนบุรี 71000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "034-914-062",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Robinson+Kanchanaburi"
+  },
+  {
+    "id": "Location Inspection Survey_1070 Robinson Buriram",
+    "name": "1070 สาขา Robinson Buriram",
+    "address": "โรบินสันบุรีรัมย์ ชั้น 1 เลขที่ 125 หมู่ 6 ถนนบุรีรัมย์- นางรอง ตำบลอิสาณ อำเภอเมืองบุรีรัมย์ จังหวัดบุรีรัมย์ 31000",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "044-115-064",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Robinson+Buriram"
+  },
+  {
+    "id": "Location Inspection Survey_1071 Terminal 21 Rama 3",
+    "name": "1071 สาขา Terminal Rama3",
+    "address": "เทอร์มินอลพระราม 3 ถนนพระราม 3 เขตบางโคล่ แขวงบางคอแหลม กรุงเทพมหานคร 10120",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-0301-438",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Terminal+Rama3"
+  },
+  {
+    "id": "Location Inspection Survey_1072 Roadside Lat Krabang",
+    "name": "1072 สาขา Roadside Lat-Krabang",
+    "address": "ลาดกระบัง 72 ถนนลาดกระบัง แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520",
+    "dolly": "15:00 - 17:00",
+    "hours": "15:00 - 18:00",
+    "phone": "02-483-6294",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Roadside+Lat-Krabang"
+  },
+  {
+    "id": "Location Inspection Survey_1073 Central Plaza Ram-Indra",
+    "name": "1073 สาขา Central Ramindra",
+    "address": "เซ็นทรัลพลาซ่า รามอินทรา ชั้น 1 หมู่ 3 ถนนรามอินทรา แขวงอนุสาวรีย์เขตบางเขน กรุงเทพมหานคร 10220",
+    "dolly": "19:00 - 20:00",
+    "hours": "(21:00-22:00),(22:00-23:00)",
+    "phone": "02-030-1934",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Central+Ramindra"
+  },
+  {
+    "id": "Location Inspection Survey_1074 Roadside Khonkaen ",
+    "name": "1074 สาขา Roadside Khonkaen",
+    "address": "ขอนแก่น ตลาดอู้ฟู่ หมู่ที่ 8 ถนนมิตรภาพ อำเภอเมืองขอนแก่น จังหวัดขอนแก่น รหัสไปรษณีย์ 40000",
+    "dolly": "15:00 - 17:00",
+    "hours": "15:00 - 18:00",
+    "phone": "043-002-595",
+    "transport": "VIEW MAP",
+    "mapLink": "https://maps.google.com/?q=Roadside+Khonkaen"
+  }
+]

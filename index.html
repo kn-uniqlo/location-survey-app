@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIQLO Store Location Survey | 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+        <header>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/UNIQLO_logo.svg/1200px-UNIQLO_logo.svg.png" alt="UNIQLO Logo" class="logo">
+          <h1>UNIQLO STORE LOCATION SURVEY</h1>
+          <div class="subtitle">ค้นหาข้อมูลรายละเอียดสาขาของ UNIQLO ในประเทศไทย</div>
+        </header>
+        
+        <div class="content">
+          <div class="branch-selector">
+            <h2 class="section-title">ค้นหาสาขาที่ต้องการ</h2>
+            
+            <div class="search-wrapper">
+              <input type="text" id="branchSearch" list="branchList" placeholder="พิมพ์ชื่อสาขา, ที่ตั้ง หรือศูนย์การค้า...">
+              <i class="search-icon fas fa-search"></i>
+              <datalist id="branchList"></datalist>
+            </div>
+            
+            <div id="branchInfo" class="branch-info">
+              <div class="branch-name"><i class="fas fa-store-alt"></i> <span id="branchName"></span></div>
+              <div class="branch-address"><i class="fas fa-map-marked-alt"></i> <span id="branchAddress"></span></div>
+              <div class="branch-meta">
+                <div class="meta-item"><i class="fas fa-dolly-flatbed"></i> <span id="branchDolly"></span></div>
+                <div class="meta-item"><i class="fas fa-clock"></i> <span id="branchHours"></span></div>
+                <div class="meta-item"><i class="fas fa-phone-alt"></i> <span id="branchPhone"></span></div>
+                <div class="meta-item">
+                  <a href="#" id="mapLink" target="_blank" class="map-link" aria-label="ดูแผนที่สาขา">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="branchTransport"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <!-- PDF Controls -->
+          <div class="pdf-controls">
+              <div class="pdf-nav">
+                  <button id="prev" class="pdf-btn">
+                      <i class="fas fa-chevron-left"></i> Previous
+                  </button>
+                  <button id="next" class="pdf-btn">
+                      Next <i class="fas fa-chevron-right"></i>
+                  </button>
+              </div>
+              <div class="pdf-status">
+                  <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+              </div>
+              <button id="read-btn" class="pdf-btn read-btn" disabled>
+                  <i class="fas fa-check-circle"></i> Mark as Read
+              </button>
+          </div>
+          
+
+            <div id="canvasPlaceholder" class="canvas-placeholder">
+              <div class="loading-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="main-message">กรุณาเลือกสาขาเพื่อแสดง Location Survey</div>
+              <div class="sub-message">ระบบจะแสดงข้อมูลรายละเอียดของสาขาที่คุณเลือก</div>
+            </div>
+            <canvas id="the-canvas"></canvas>
+ 
+
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="downloadPDF()" id="downloadBtn" disabled>
+              <i class="fas fa-download"></i> ดาวน์โหลด PDF
+            </button>
+            <button class="btn btn-outline" onclick="viewInNewTab()" id="viewBtn" disabled>
+              <i class="fas fa-external-link-alt"></i> เปิดในแท็บใหม่
+            </button>
+            <button class="btn btn-outline" onclick="toggleAdminPanel()" id="adminBtn">
+              <i class="fas fa-chart-bar"></i> ดูสถิติเชิงลึก
+            </button>
+          </div>
+          
+          <div id="adminPanel" class="admin-panel">
+            <h3><i class="fas fa-chart-line"></i> สถิติการเข้าชมแบบเรียลไทม์</h3>
+            <div class="date-filter">
+              <label for="startDate"><i class="fas fa-calendar-day"></i> จากวันที่: </label>
+              <input type="date" id="startDate">
+              <label for="endDate"><i class="fas fa-calendar-day"></i> ถึงวันที่: </label>
+              <input type="date" id="endDate">
+              <button class="btn btn-primary" id="filterStatsBtn">
+                <i class="fas fa-filter"></i> กรองข้อมูล
+              </button>
+            </div>
+            <div class="stats-summary">
+              <div class="summary-item">
+                <i class="fas fa-store"></i>
+                <span id="totalBranches">0</span> สาขา
+              </div>
+              <div class="summary-item">
+                <i class="fas fa-eye"></i>
+                <span id="totalViews">0</span> ครั้ง
+              </div>
+            </div>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>วันที่</th>
+                  <th>สาขา</th>
+                  <th>จำนวนครั้ง</th>
+                </tr>
+              </thead>
+              <tbody id="statsBody">
+                <!-- ข้อมูลสถิติจะแสดงที่นี่ -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+    <footer>
+        <p>© 2025 UNIQLO Thailand. All rights reserved.</p>
+        <p>ระบบ Location Survey สำหรับใช้ภายในบริษัทเท่านั้น</p>
+    </footer>
+  
+      
+  <a href="#" class="floating-btn" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+    <span class="tooltip">กลับสู่ด้านบน</span>
+  </a>
+  
+
+<script src="//mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+<script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+    const supabaseUrl = 'YOUR_SUPABASE_URL'
+    const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY'
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+    // คุณสามารถเข้าถึง client นี้ได้ทั่วทั้ง module นี้
+    window.supabase = supabase;
+
+    // If absolute URL from the remote server is provided, configure the CORS
+    // header on that server.
+    let url = '';
+    let currentPDFId = null;
+  
+    // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    var { pdfjsLib } = globalThis;
+    
+    // The workerSrc property shall be specified.
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+    
+    var pdfDoc = null,
+        pageNum = 1,
+        pageRendering = false,
+        pageNumPending = null,
+        scale = 4.0,
+        canvas = document.getElementById('the-canvas'),
+        ctx = canvas.getContext('2d');
+    var pagesRead = new Set();
+    var readAllPages = false;
+    var pageStartTime = Date.now();
+    var minPageTime = 5000; // 5 seconds in milliseconds
+    var canChangePage = true;
+    var startTime = Date.now();
+    
+    let branchesData = null;
+    
+    // Function to load branches data
+    async function loadBranches() {
+        const response = await fetch('branches.json');
+        branchesData = await response.json();
+        populateSearch();
+    }
+    
+    // Function to populate search suggestions
+    function populateSearch() {
+        const searchInput = document.getElementById('branchSearch');
+        const datalist = document.getElementById('branchList');
+        
+        // Create an object to store branch info
+        const branchInfo = {};
+
+        branchesData.forEach(branch => {
+            const option = document.createElement('option');
+            option.value = branch.name;
+            option.setAttribute('data-id', branch.id);
+            datalist.appendChild(option);
+            
+            // Store branch info
+            branchInfo[branch.id] = {
+                name: branch.name,
+                address: branch.address,
+                dolly: branch.dolly || '19:00 - 20:00 น.',
+                hours: branch.hours || '15:00 - 18:00 น.',
+                phone: branch.phone || '02-XXX-XXXX',
+                transport: branch.transport || 'VIEW MAP',
+                mapLink: branch.mapLink
+            };
+        });
+
+        searchInput.addEventListener('change', function() {
+            const selectedOption = datalist.querySelector(`option[value="${this.value}"]`);
+            if (selectedOption) {
+                const branchId = selectedOption.dataset.id;
+                const selectedBranch = branchInfo[branchId];
+                
+                // Update branch info display
+                document.getElementById('branchName').textContent = selectedBranch.name;
+                document.getElementById('branchAddress').textContent = selectedBranch.address;
+                document.getElementById('branchHours').textContent = selectedBranch.hours;
+                document.getElementById('branchDolly').textContent = selectedBranch.dolly;
+                document.getElementById('branchPhone').textContent = selectedBranch.phone;
+                document.getElementById('branchTransport').textContent = selectedBranch.transport;
+                document.getElementById('mapLink').href = selectedBranch.mapLink;
+                
+                // Show the branch info section
+                document.getElementById('branchInfo').classList.add('show');
+                
+                // Load the PDF
+                loadNewPdf(branchId);
+            }
+        });
+    }
+    
+    // Function to load new PDF
+    function loadNewPdf(id) {
+        currentPDFId = id;
+        url = `https://kn-uniqlo.github.io/location-survey/pdfs/${id}.pdf`;
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page_count').textContent = pdfDoc.numPages;
+            pageNum = 1;
+            pagesRead.clear();
+            readAllPages = false;
+            document.getElementById('read-btn').disabled = true;
+            document.getElementById('canvasPlaceholder').style.display = 'none';
+            document.getElementById('the-canvas').style.display = 'block';
+            renderPage(pageNum);
+            enablePDFButtons();
+        });
+    }
+    
+    // Load branches data when the page loads
+    loadBranches();
+
+    // Download PDF function
+    function downloadPDF() {
+      if (currentPDFId) { 
+        const pdfUrl = `https://raw.githubusercontent.com/kn-uniqlo/location-survey/main/pdfs/${currentPDFId}.pdf`;
+        
+        // สร้างลิงก์ดาวน์โหลด
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = `${currentPDFId}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        alert('กรุณาเลือกสาขาก่อน');
+      }
+    }
+    
+    // View in new tab function
+    function viewInNewTab() {
+      if (currentPDFId) {
+        const pdfUrl = `https://kn-uniqlo.github.io/location-survey/pdfs/${currentPDFId}.pdf`;  
+        window.open(pdfUrl, '_blank');
+      } else {
+        alert('กรุณาเลือกสาขาก่อน');
+      }
+    }
+
+    // Ensure buttons are enabled when PDF is loaded
+    function enablePDFButtons() {
+        document.getElementById('downloadBtn').disabled = false;
+        document.getElementById('viewBtn').disabled = false;
+    }
+
+    // Add event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+        document.getElementById('viewBtn').addEventListener('click', viewInNewTab);
+    });
+    
+    /**
+        * Get page info from document, resize canvas accordingly, and render page.
+        * @param num Page number.
+        */
+    function renderPage(num) {
+        pageRendering = true;
+        // Reset page timer and lock navigation
+        pageStartTime = Date.now();
+        canChangePage = false;
+        setTimeout(() => {
+        canChangePage = true;
+        }, minPageTime);
+    
+        // Using promise to fetch the page
+        pdfDoc.getPage(num).then(function(page) {
+        var viewport = page.getViewport({scale: scale});
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+    
+        // Render PDF page into canvas context
+        var renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+        var renderTask = page.render(renderContext);
+    
+        // Wait for rendering to finish
+        renderTask.promise.then(function() {
+            pageRendering = false;
+            if (pageNumPending !== null) {
+            // New page rendering is pending
+            renderPage(pageNumPending);
+            pageNumPending = null;
+            }
+        });
+    
+        // Track read pages
+        pagesRead.add(num);
+        updateReadStatus();
+        });
+    
+        // Update page counters
+        document.getElementById('page_num').textContent = num;
+    }
+    
+    /**
+        * If another page rendering in progress, waits until the rendering is
+        * finised. Otherwise, executes rendering immediately.
+        */
+    function queueRenderPage(num) {
+        if (pageRendering) {
+        pageNumPending = num;
+        } else {
+        renderPage(num);
+        }
+    }
+    
+    /**
+        * Displays previous page.
+        */
+    function onPrevPage() {
+      if (pageNum <= 1) {
+        return;
+      }
+      pageNum--;
+      queueRenderPage(pageNum);
+    }
+    document.getElementById('prev').addEventListener('click', onPrevPage);
+    
+    /**
+        * Displays next page.
+        */
+    function onNextPage() {
+        if (!canChangePage) {
+        alert('Please view this page for at least 10 seconds before navigating.');
+        return;
+        }
+        if (pageNum >= pdfDoc.numPages) {
+        return;
+        }
+        pageNum++;
+        queueRenderPage(pageNum);
+    }
+    document.getElementById('next').addEventListener('click', onNextPage);
+    
+    /**
+        * Asynchronously downloads PDF.
+        */
+    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+        pdfDoc = pdfDoc_;
+        document.getElementById('page_count').textContent = pdfDoc.numPages;
+    
+        // Initial/first page rendering
+        renderPage(pageNum);
+    });
+    
+    function updateReadStatus() {
+        // Enable read button when all pages are read
+        if (pagesRead.size === pdfDoc.numPages && !readAllPages) {
+        readAllPages = true;
+        document.getElementById('read-btn').disabled = false;
+        alert('You have read all pages!');
+        saveReadingStats();
+        }
+        // Update page counter with read status
+        document.getElementById('page_num').innerHTML = 
+        `${pageNum} <span class="read-status">${pagesRead.has(pageNum) ? '✓' : ''}</span>`;
+    }
+    
+    function saveReadingStats() {
+        const readingData = {
+        totalPages: pdfDoc.numPages,
+        readPages: pagesRead.size,
+        completionTime: Date.now() - startTime,
+        completedAt: new Date().toISOString()
+        };
+        // Here you can send the data to your server
+        console.log('Reading stats:', readingData);
+    }
+  
+
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBdIb5BR91K6_SJWSGc8Y7Q3UwAttIZSOo",
+      authDomain: "recordreadbyuser.firebaseapp.com",
+      databaseURL: "https://recordreadbyuser-default-rtdb.firebaseio.com",
+      projectId: "recordreadbyuser",
+      storageBucket: "recordreadbyuser.firebasestorage.app",
+      messagingSenderId: "578950778208",
+      appId: "1:578950778208:web:0443ab287ddb12394fa205",
+      measurementId: "G-5VF81MTY4R"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const auth = firebase.auth();
+
+    // Function to record view statistics
+    // ปรับเปลี่ยนฟังก์ชัน recordView สำหรับ Supabase
+    async function recordView(branchId, branchName) {
+      const today = new Date().toISOString().split('T')[0];
+      const timestamp = new Date().toISOString(); // Supabase ใช้รูปแบบ ISO timestamp
+
+      // บันทึกข้อมูลรายละเอียดการเข้าชม
+      const { error: insertLogError } = await supabase
+        .from('view_logs') // เปลี่ยนเป็นชื่อตารางสำหรับ logs
+        .insert([
+          {
+            branch_id: branchId,
+            timestamp: timestamp,
+            user_agent: navigator.userAgent,
+            screen_resolution: `${window.screen.width}x${window.screen.height}`,
+            language: navigator.language
+          }
+        ]);
+
+      if (insertLogError) {
+        console.error('Error recording view log:', insertLogError);
+      }
+
+      // อัปเดตจำนวนการเข้าชมทั้งหมด
+      const { error: updateCountError } = await supabase
+        .from('branch_stats') // เปลี่ยนเป็นชื่อตารางสำหรับสถิติ
+        .upsert([
+          { branch_id: branchId, view_count: 1, date: today }
+        ], { onConflict: ['branch_id', 'date'] }); // หากมี record อยู่แล้วให้เพิ่ม view_count
+
+      if (updateCountError) {
+        console.error('Error updating view count:', updateCountError);
+      }
+
+      // อัปเดตชื่อสาขา (ถ้ายังไม่มี)
+      const { error: upsertNameError } = await supabase
+        .from('branch_names') // เปลี่ยนเป็นชื่อตารางสำหรับชื่อสาขา
+        .upsert([
+          { id: branchId, name: branchName }
+        ], { onConflict: ['id'] });
+
+      if (upsertNameError) {
+        console.error('Error updating branch name:', upsertNameError);
+      }
+    }
+
+    // Add event listener for read button
+    document.getElementById('read-btn').addEventListener('click', function() {
+      if (readAllPages) {
+        const branchId = currentPDFId; // Assuming currentPDFId holds the current branch ID
+        const branchName = document.getElementById('branchName').textContent;
+
+        // Record the view in Firebase
+        recordView(branchId, branchName);
+
+        alert('Thank you for reading the entire document!');
+        // Additional actions can be added here
+      }
+    });
+
+    // Toggle admin panel
+    function toggleAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+
+      if (panel.style.display === 'block') {
+        loadStats();
+      }
+    }
+
+    // Load statistics from Firebase
+    // ปรับเปลี่ยนฟังก์ชัน loadStats สำหรับ Supabase
+    async function loadStats() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      try {
+        const today = new Date().toISOString().split('T')[0];
+        const queryStartDate = startDate || today;
+        const queryEndDate = endDate || today;
+
+        const { data, error } = await supabase
+          .from('branch_stats') // เปลี่ยนเป็นชื่อตารางสำหรับสถิติ
+          .select('date, branch_id, view_count')
+          .gte('date', queryStartDate)
+          .lte('date', queryEndDate);
+
+        if (error) {
+          console.error('Error loading stats:', error);
+          alert('เกิดข้อผิดพลาดในการโหลดสถิติ');
+          return;
+        }
+
+        // ดึงชื่อสาขาจากตาราง branch_names
+        const { data: namesData, error: namesError } = await supabase
+          .from('branch_names')
+          .select('id, name');
+
+        if (namesError) {
+          console.error('Error loading branch names:', namesError);
+          // อาจจะยังแสดงผลโดยใช้ branch_id แทน
+        }
+
+        const branchNames = namesData?.reduce((acc, curr) => {
+          acc[curr.id] = curr.name;
+          return acc;
+        }, {});
+
+        displayStats(data, branchNames);
+
+      } catch (error) {
+        console.error('Error loading stats:', error);
+        alert('เกิดข้อผิดพลาดในการโหลดสถิติ');
+      }
+    }
+
+    // ปรับเปลี่ยนฟังก์ชัน displayStats สำหรับ Supabase
+    function displayStats(statsData, branchNames = {}) {
+      const statsBody = document.getElementById('statsBody');
+      statsBody.innerHTML = '';
+
+      let totalViews = 0;
+      const branchSet = new Set();
+      const dailyStats = {};
+
+      statsData.forEach(item => {
+        const { date, branch_id, view_count } = item;
+        totalViews += view_count;
+        branchSet.add(branch_id);
+
+        if (!dailyStats[date]) {
+          dailyStats[date] = {};
+        }
+        dailyStats[date][branch_id] = (dailyStats[date][branch_id] || 0) + view_count;
+      });
+
+      // เรียงลำดับวันที่จากใหม่ไปเก่า
+      const sortedDates = Object.keys(dailyStats).sort().reverse();
+
+      sortedDates.forEach(date => {
+        const branches = dailyStats[date];
+        for (const branchId in branches) {
+          const viewCount = branches[branchId];
+
+          const row = document.createElement('tr');
+
+          const dateCell = document.createElement('td');
+          dateCell.textContent = formatDate(date);
+
+          const branchCell = document.createElement('td');
+          branchCell.textContent = branchNames[branchId] || branchId;
+
+          const countCell = document.createElement('td');
+          countCell.textContent = viewCount;
+
+          row.appendChild(dateCell);
+          row.appendChild(branchCell);
+          row.appendChild(countCell);
+          statsBody.appendChild(row);
+        }
+      });
+
+      document.getElementById('totalViews').textContent = totalViews;
+      document.getElementById('totalBranches').textContent = branchSet.size;
+    }
+
+    // จัดรูปแบบวันที่
+    function formatDate(dateString) {
+      const [year, month, day] = dateString.split('-');
+      return `${day}/${month}/${year}`;
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+      // ตั้งค่าวันที่เริ่มต้นและสิ้นสุดในฟิลเตอร์
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('startDate').value = today;
+      document.getElementById('endDate').value = today;
+    
+      // Load branches data
+      await loadBranches();
+    
+      // เพิ่ม event listener สำหรับปุ่ม adminBtn ตรงนี้เพียงครั้งเดียว
+      const adminBtn = document.getElementById('adminBtn');
+      if (adminBtn) {
+        adminBtn.addEventListener('click', toggleAdminPanel);
+      }
+    
+      // เพิ่ม event listener สำหรับปุ่ม filterStatsBtn
+      const filterStatsBtn = document.getElementById('filterStatsBtn');
+      if (filterStatsBtn) {
+        filterStatsBtn.addEventListener('click', loadStats);
+      }
+    
+      // Show scroll to top button when scrolling down
+      window.addEventListener('scroll', function() {
+        const floatingBtn = document.querySelector('.floating-btn');
+        if (window.pageYOffset > 300) {
+          floatingBtn.style.display = 'flex';
+        } else {
+          floatingBtn.style.display = 'none';
+        }
+      });
+    
+      // ล็อกอินแบบไม่ระบุตัวตนด้วย Supabase Auth
+      try {
+        const { data: authData, error: authError } = await supabase.auth.signInAnonymously();
+        if (authError) {
+          console.error('Anonymous login failed:', authError);
+        } else {
+          console.log('Anonymous login successful', authData);
+          // คุณอาจจะเก็บ userId จาก authData ถ้าต้องการ
+        }
+      } catch (error) {
+        console.error('Anonymous login error:', error);
+      }
+    });
+
+</script>
+</body>
+</html>
