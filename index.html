@@ -203,7 +203,7 @@
             };
         });
 
-        searchInput.addEventListener('change', function() {
+        searchInput.addEventListener('input', function() {
             const selectedOption = datalist.querySelector(`option[value="${this.value}"]`);
             if (selectedOption) {
                 const branchId = selectedOption.dataset.id;
@@ -212,8 +212,8 @@
                 // Update branch info display
                 document.getElementById('branchName').textContent = selectedBranch.name;
                 document.getElementById('branchAddress').textContent = selectedBranch.address;
-                document.getElementById('branchHours').textContent = selectedBranch.hours;
                 document.getElementById('branchDolly').textContent = selectedBranch.dolly;
+                document.getElementById('branchHours').textContent = selectedBranch.hours;
                 document.getElementById('branchPhone').textContent = selectedBranch.phone;
                 document.getElementById('branchTransport').textContent = selectedBranch.transport;
                 document.getElementById('mapLink').href = selectedBranch.mapLink;
