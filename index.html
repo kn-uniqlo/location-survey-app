@@ -230,6 +230,7 @@
     // Function to load new PDF
     function loadNewPdf(id) {
         currentPDFId = id;
+        isReadConfirmed = false; // รีเซ็ตสถานะเมื่อโหลด PDF ใหม่
         url = `https://kn-uniqlo.github.io/location-survey-app/pdfs/${id}.pdf`;
         pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
             pdfDoc = pdfDoc_;
@@ -384,14 +385,12 @@
     });
     
     function updateReadStatus() {
-        // Enable read button when all pages are read
         if (pagesRead.size === pdfDoc.numPages && !readAllPages) {
         readAllPages = true;
         document.getElementById('read-btn').disabled = false;
-        alert('You have read all pages!');
-        saveReadingStats();
+        document.getElementById('read-btn').classList.remove('disabled');
+        document.getElementById('read-btn').classList.add('active');
         }
-        // Update page counter with read status
         document.getElementById('page_num').innerHTML = 
         `${pageNum} <span class="read-status">${pagesRead.has(pageNum) ? '✓' : ''}</span>`;
     }
@@ -470,16 +469,22 @@
     }
 
     // Add event listener for read button
-    document.getElementById('read-btn').addEventListener('click', function() {
-      if (readAllPages) {
+    document.getElementById('read-btn').addEventListener('click', async function() {
+      if (readAllPages && !isReadConfirmed) {
         const branchId = currentPDFId; // Assuming currentPDFId holds the current branch ID
         const branchName = document.getElementById('branchName').textContent;
 
-        // Record the view in Firebase
-        recordView(branchId, branchName);
+        // Record the view
+        await recordView(branchId, branchName);
 
-        alert('Thank you for reading the entire document!');
-        // Additional actions can be added here
+        // อัปเดต UI
+        this.disabled = true;
+        this.classList.remove('active');
+        this.classList.add('confirmed');
+        this.innerHTML = '<i class="fas fa-check-circle"></i> ยืนยันการอ่านแล้ว';
+        isReadConfirmed = true;
+
+        alert('ขอบคุณที่อ่านเอกสารจนจบ!');
       }
     });
 
@@ -641,6 +646,9 @@
         console.error('Anonymous login error:', error);
       }
     });
+
+    // เพิ่มตัวแปร global เพื่อเก็บสถานะ
+    let isReadConfirmed = false;
 
 </script>
 </body>
