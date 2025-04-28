@@ -492,6 +492,11 @@ h1 {
   transform: translateY(1px) scale(0.98);
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Glassmorphism Footer */
 footer {
   text-align: center;
@@ -943,7 +948,9 @@ footer {
 }
 
 .pdf-btn {
-  padding: 0.4rem 0.1rem;
+  padding: 0.5rem 2rem;
+  font-size: medium;
+  font-family: 'Inter', 'Noto Sans Thai', sans-serif;
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #f5f5f5;
