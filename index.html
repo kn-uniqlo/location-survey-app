@@ -471,9 +471,10 @@
     // Toggle admin panel
     function toggleAdminPanel() {
       const panel = document.getElementById('adminPanel');
-      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-
-      if (panel.style.display === 'block') {
+      const isVisible = panel.classList.toggle('visible');
+    
+      // โหลดสถิติเมื่อแสดง panel
+      if (isVisible) {
         loadStats();
       }
     }
