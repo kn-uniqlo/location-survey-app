@@ -981,17 +981,6 @@ footer {
   margin: 2 2rem;
 }
 
-#adminPanel {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-#adminPanel.visible {
-  display: block;
-  opacity: 1;
-}
-
 #the-canvas {
   width: 100%;
   height: auto;
