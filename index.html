@@ -56,9 +56,6 @@
               <div class="pdf-status">
                   <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
               </div>
-              <button id="read-btn" class="pdf-btn read-btn" disabled>
-                  <i class="fas fa-check-circle"></i> Mark as Read
-              </button>
           </div>
           
 
@@ -71,6 +68,9 @@
  
 
           <div class="action-buttons">
+            <button id="read-btn" class="pdf-btn read-btn" disabled>
+              <i class="fas fa-check-circle"></i> อ่านแล้ว
+            </button>
             <button class="btn btn-primary" onclick="downloadPDF()" id="downloadBtn" disabled>
               <i class="fas fa-download"></i> ดาวน์โหลด PDF
             </button>
