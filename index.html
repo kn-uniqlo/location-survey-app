@@ -362,7 +362,7 @@
         */
     function onNextPage() {
         if (!canChangePage) {
-        alert('Please view this page for at least 10 seconds before navigating.');
+        alert('เพื่อความเข้าใจข้อมูลอย่างครบถ้วน โปรดอ่านเอกสารข้อควรระวังก่อนหน้าถัดไป');
         return;
         }
         if (pageNum >= pdfDoc.numPages) {
@@ -391,7 +391,7 @@
         document.getElementById('read-btn').classList.remove('disabled');
         document.getElementById('read-btn').classList.add('active');
         }
-        document.getElementById('page_num').innerHTML = 
+        document.getElementById('').innerHTML = 
         `${pageNum} <span class="read-status">${pagesRead.has(pageNum) ? '✓' : ''}</span>`;
     }
     
