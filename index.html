@@ -457,31 +457,6 @@
         console.error('Error updating daily view count:', updateDailyError);
       }
 
-      // อัปเดตจำนวนการเข้าชมสะสม
-      const { data: cumulativeData, error: cumulativeError } = await supabase
-        .from('branch_cumulative')
-        .select('total_views')
-        .eq('branch_id', branchId)
-        .single();
-
-      let newCumulativeCount = 1;
-      if (!cumulativeError && cumulativeData) {
-        newCumulativeCount = cumulativeData.total_views + 1;
-      }
-
-      const { error: updateCumulativeError } = await supabase
-        .from('branch_cumulative')
-        .upsert([
-          { 
-            branch_id: branchId, 
-            total_views: newCumulativeCount 
-          }
-        ], { onConflict: ['branch_id'] });
-
-      if (updateCumulativeError) {
-        console.error('Error updating cumulative view count:', updateCumulativeError);
-      }
-
       // อัปเดตชื่อสาขา (ถ้ายังไม่มี)
       const { error: upsertNameError } = await supabase
         .from('branch_names') // เปลี่ยนเป็นชื่อตารางสำหรับชื่อสาขา
@@ -542,15 +517,6 @@
           return;
         }
 
-        // Get cumulative stats
-        const { data: cumulativeStats, error: cumulativeError } = await supabase
-          .from('branch_cumulative')
-          .select('branch_id, total_views');
-
-        if (cumulativeError) {
-          console.error('Error loading cumulative stats:', cumulativeError);
-        }
-
         // ดึงชื่อสาขาจากตาราง branch_names
         const { data: namesData, error: namesError } = await supabase
           .from('branch_names')
@@ -566,12 +532,7 @@
           return acc;
         }, {});
 
-        const cumulativeMap = cumulativeStats?.reduce((acc, curr) => {
-          acc[curr.branch_id] = curr.total_views;
-          return acc;
-        }, {});
-
-        displayStats(dailyStats, branchNames, cumulativeMap);
+        displayStats(dailyStats, branchNames);
 
       } catch (error) {
         console.error('Error loading stats:', error);
@@ -580,7 +541,7 @@
     }
 
     // ปรับเปลี่ยนฟังก์ชัน displayStats สำหรับ Supabase
-    function displayStats(statsData, branchNames = {}, cumulativeMap = {}) {
+    function displayStats(statsData, branchNames = {}) {
       const statsBody = document.getElementById('statsBody');
       statsBody.innerHTML = '';
 
@@ -599,15 +560,6 @@
         dailyStats[date][branch_id] = (dailyStats[date][branch_id] || 0) + view_count;
       });
 
-      // Add cumulative views column to the table header
-      const header = document.querySelector('.stats-table thead tr');
-      if (!header.querySelector('.cumulative-header')) {
-        const cumulativeHeader = document.createElement('th');
-        cumulativeHeader.className = 'cumulative-header';
-        cumulativeHeader.textContent = 'ยอดรวมทั้งหมด';
-        header.appendChild(cumulativeHeader);
-      }
-
       // เรียงลำดับวันที่จากใหม่ไปเก่า
       const sortedDates = Object.keys(dailyStats).sort().reverse();
 
@@ -615,7 +567,6 @@
         const branches = dailyStats[date];
         for (const branchId in branches) {
           const viewCount = branches[branchId];
-          const cumulativeCount = cumulativeMap[branchId] || 0;
 
           const row = document.createElement('tr');
 
@@ -628,13 +579,9 @@
           const countCell = document.createElement('td');
           countCell.textContent = viewCount;
 
-          const cumulativeCell = document.createElement('td');
-          cumulativeCell.textContent = cumulativeCount;
-
           row.appendChild(dateCell);
           row.appendChild(branchCell);
           row.appendChild(countCell);
-          row.appendChild(cumulativeCell);
           statsBody.appendChild(row);
         }
       });
