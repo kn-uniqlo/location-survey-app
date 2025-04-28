@@ -971,14 +971,25 @@ footer {
   cursor: not-allowed;
 }
 
+/* ปุ่มอ่านแล้ว */
 .read-btn {
-  background: #4CAF50;
-  color: white;
-  border-color: #388E3C;
+  transition: all 0.3s ease;
 }
 
-.read-btn:hover {
-  background: #388E3C;
+.read-btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.read-btn.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.read-btn.confirmed {
+  background-color: #2196F3;
+  color: white;
+  cursor: default;
 }
 
 .pdf-status {
