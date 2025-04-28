@@ -409,10 +409,9 @@
   
 
     // Function to record view statistics
-    // ปรับเปลี่ยนฟังก์ชัน recordView สำหรับ Supabase
     async function recordView(branchId, branchName) {
       const today = new Date().toISOString().split('T')[0];
-      const timestamp = new Date().toISOString(); // Supabase ใช้รูปแบบ ISO timestamp
+      const timestamp = new Date().toISOString();
 
       // บันทึกข้อมูลรายละเอียดการเข้าชม
       const { error: insertLogError } = await supabase
@@ -432,14 +431,55 @@
       }
 
       // อัปเดตจำนวนการเข้าชมทั้งหมด
-      const { error: updateCountError } = await supabase
+      const { data: dailyData, error: dailyError } = await supabase
         .from('branch_stats') // เปลี่ยนเป็นชื่อตารางสำหรับสถิติ
-        .upsert([
-          { branch_id: branchId, view_count: 1, date: today }
-        ], { onConflict: ['branch_id', 'date'] }); // หากมี record อยู่แล้วให้เพิ่ม view_count
+        .select('view_count')
+        .eq('branch_id', branchId)
+        .eq('date', today)
+        .single();
 
-      if (updateCountError) {
-        console.error('Error updating view count:', updateCountError);
+      let newDailyCount = 1;
+      if (!dailyError && dailyData) {
+        newDailyCount = dailyData.view_count + 1;
+      }
+
+      const { error: updateDailyError } = await supabase
+        .from('branch_stats')
+        .upsert([
+          { 
+            branch_id: branchId, 
+            view_count: newDailyCount, 
+            date: today 
+          }
+        ], { onConflict: ['branch_id', 'date'] });
+
+      if (updateDailyError) {
+        console.error('Error updating daily view count:', updateDailyError);
+      }
+
+      // อัปเดตจำนวนการเข้าชมสะสม
+      const { data: cumulativeData, error: cumulativeError } = await supabase
+        .from('branch_cumulative')
+        .select('total_views')
+        .eq('branch_id', branchId)
+        .single();
+
+      let newCumulativeCount = 1;
+      if (!cumulativeError && cumulativeData) {
+        newCumulativeCount = cumulativeData.total_views + 1;
+      }
+
+      const { error: updateCumulativeError } = await supabase
+        .from('branch_cumulative')
+        .upsert([
+          { 
+            branch_id: branchId, 
+            total_views: newCumulativeCount 
+          }
+        ], { onConflict: ['branch_id'] });
+
+      if (updateCumulativeError) {
+        console.error('Error updating cumulative view count:', updateCumulativeError);
       }
 
       // อัปเดตชื่อสาขา (ถ้ายังไม่มี)
@@ -489,16 +529,26 @@
         const queryStartDate = startDate || today;
         const queryEndDate = endDate || today;
 
-        const { data, error } = await supabase
+        // Get daily stats
+        const { data: dailyStats, error: dailyError } = await supabase
           .from('branch_stats') // เปลี่ยนเป็นชื่อตารางสำหรับสถิติ
           .select('date, branch_id, view_count')
           .gte('date', queryStartDate)
           .lte('date', queryEndDate);
 
-        if (error) {
-          console.error('Error loading stats:', error);
+        if (dailyError) {
+          console.error('Error loading daily stats:', dailyError);
           alert('เกิดข้อผิดพลาดในการโหลดสถิติ');
           return;
+        }
+
+        // Get cumulative stats
+        const { data: cumulativeStats, error: cumulativeError } = await supabase
+          .from('branch_cumulative')
+          .select('branch_id, total_views');
+
+        if (cumulativeError) {
+          console.error('Error loading cumulative stats:', cumulativeError);
         }
 
         // ดึงชื่อสาขาจากตาราง branch_names
@@ -516,7 +566,12 @@
           return acc;
         }, {});
 
-        displayStats(data, branchNames);
+        const cumulativeMap = cumulativeStats?.reduce((acc, curr) => {
+          acc[curr.branch_id] = curr.total_views;
+          return acc;
+        }, {});
+
+        displayStats(dailyStats, branchNames, cumulativeMap);
 
       } catch (error) {
         console.error('Error loading stats:', error);
@@ -525,7 +580,7 @@
     }
 
     // ปรับเปลี่ยนฟังก์ชัน displayStats สำหรับ Supabase
-    function displayStats(statsData, branchNames = {}) {
+    function displayStats(statsData, branchNames = {}, cumulativeMap = {}) {
       const statsBody = document.getElementById('statsBody');
       statsBody.innerHTML = '';
 
@@ -544,6 +599,15 @@
         dailyStats[date][branch_id] = (dailyStats[date][branch_id] || 0) + view_count;
       });
 
+      // Add cumulative views column to the table header
+      const header = document.querySelector('.stats-table thead tr');
+      if (!header.querySelector('.cumulative-header')) {
+        const cumulativeHeader = document.createElement('th');
+        cumulativeHeader.className = 'cumulative-header';
+        cumulativeHeader.textContent = 'ยอดรวมทั้งหมด';
+        header.appendChild(cumulativeHeader);
+      }
+
       // เรียงลำดับวันที่จากใหม่ไปเก่า
       const sortedDates = Object.keys(dailyStats).sort().reverse();
 
@@ -551,6 +615,7 @@
         const branches = dailyStats[date];
         for (const branchId in branches) {
           const viewCount = branches[branchId];
+          const cumulativeCount = cumulativeMap[branchId] || 0;
 
           const row = document.createElement('tr');
 
@@ -563,9 +628,13 @@
           const countCell = document.createElement('td');
           countCell.textContent = viewCount;
 
+          const cumulativeCell = document.createElement('td');
+          cumulativeCell.textContent = cumulativeCount;
+
           row.appendChild(dateCell);
           row.appendChild(branchCell);
           row.appendChild(countCell);
+          row.appendChild(cumulativeCell);
           statsBody.appendChild(row);
         }
       });
