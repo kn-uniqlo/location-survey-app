@@ -241,6 +241,13 @@
             document.getElementById('read-btn').disabled = true;
             document.getElementById('canvasPlaceholder').style.display = 'none';
             document.getElementById('the-canvas').style.display = 'block';
+            
+            // Reset read button
+            const readBtn = document.getElementById('read-btn');
+            readBtn.disabled = true;
+            readBtn.classList.remove('confirmed');
+            readBtn.classList.remove('active');
+            readBtn.innerHTML = '<i class="fas fa-check-circle"></i> อ่านแล้ว';
             renderPage(pageNum);
             enablePDFButtons();
         });
