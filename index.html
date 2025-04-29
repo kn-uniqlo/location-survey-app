@@ -640,20 +640,6 @@
         }
       });
     
-      // ล็อกอินแบบไม่ระบุตัวตนด้วย Supabase Auth
-      try {
-        const { data: authData, error: authError } = await supabase.auth.signInAnonymously();
-        if (authError) {
-          console.error('Anonymous login failed:', authError);
-        } else {
-          console.log('Anonymous login successful', authData);
-          // คุณอาจจะเก็บ userId จาก authData ถ้าต้องการ
-        }
-      } catch (error) {
-        console.error('Anonymous login error:', error);
-      }
-    });
-
     // เพิ่มตัวแปร global เพื่อเก็บสถานะ
     let isReadConfirmed = false;
 
